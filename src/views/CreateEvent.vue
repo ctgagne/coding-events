@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import { createEvent } from "@/services/event-service.js";
 
 export default {
   data() {
@@ -25,10 +25,7 @@ export default {
   methods: {
     async submit() {
       try {
-        const res = await axios.post(
-          "http://localhost:3000/events",
-          this.event
-        );
+        const res = await createEvent(this.event);
         console.log("Created new event", res.data);
       } catch (error) {
         console.error(error);
