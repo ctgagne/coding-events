@@ -19,7 +19,9 @@ import { createEvent } from "@/services/event-service.js";
 export default {
   data() {
     return {
-      event: { title: "" }
+      event: {
+        title: ""
+      }
     };
   },
   methods: {
