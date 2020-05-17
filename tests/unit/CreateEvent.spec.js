@@ -48,7 +48,7 @@ describe("CreateEvent", () => {
     const wrapper = mount(CreateEvent);
 
     expect(wrapper.vm.event).toEqual({
-      title: ""
+      title: "",
     });
   });
 
