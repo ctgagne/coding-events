@@ -15,6 +15,7 @@ function getNewId() {
 export default new Vuex.Store({
   state: {
     notifications: [],
+    userData: null,
   },
   mutations: {
     PUSH_NOTIFICATION(state, notification) {
@@ -25,6 +26,10 @@ export default new Vuex.Store({
         notification => notification.id == notificationToRemove.id
       );
       state.notifications.splice(index, 1);
+    },
+    SET_USER_DATA(state, userData) {
+      state.userData = userData;
+      axios.defaults.headers.common["Authorization"] = `Bearer ${userData.jwt}`;
     },
   },
   actions: {
@@ -49,7 +54,7 @@ export default new Vuex.Store({
           password,
         }
       );
-      console.log(res.data);
+      context.commit("SET_USER_DATA", res.data);
     },
   },
 });

@@ -31,8 +31,17 @@ export default {
   },
   methods: {
     async submit() {
-      // dispatch login action
-      this.$store.dispatch("login", this.user);
+      try {
+        // dispatch login action
+        await this.$store.dispatch("login", this.user);
+        this.$router.push("/");
+      } catch {
+        this.$store.dispatch("pushNotification", {
+          message:
+            "Those credentials didn't match our records, please try again",
+          type: "error",
+        });
+      }
     },
   },
 };
