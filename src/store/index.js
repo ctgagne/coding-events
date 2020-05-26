@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import axios from "axios";
 
 Vue.use(Vuex);
 
@@ -38,6 +39,17 @@ export default new Vuex.Store({
       setTimeout(() => {
         context.commit("REMOVE_NOTIFICATION", notification);
       }, 6000);
+    },
+    async login(context, { email, password }) {
+      // Make a post request to auth local
+      const res = await axios.post(
+        process.env.VUE_APP_API_URL + "/auth/local",
+        {
+          identifier: email,
+          password,
+        }
+      );
+      console.log(res.data);
     },
   },
 });

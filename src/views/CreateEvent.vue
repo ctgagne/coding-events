@@ -24,7 +24,7 @@
         v-model="event.location"
         type="text"
         name="location"
-        placeholder="Where is the event going to happen?"
+        placeholder="Where is the event taking place?"
       />
       <button type="submit">Create</button>
     </form>
