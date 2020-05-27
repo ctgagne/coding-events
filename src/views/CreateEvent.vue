@@ -8,7 +8,25 @@
         name="title"
         placeholder="Add a Title"
       />
-      <input type="submit" value="Create" />
+      <input
+        v-model="event.details"
+        type="text"
+        name="details"
+        placeholder="Tell us more about the event"
+      />
+      <input
+        v-model="event.date"
+        type="date"
+        name="date"
+        placeholder="Date: 05/17/2020 19:00"
+      />
+      <input
+        v-model="event.location"
+        type="text"
+        name="location"
+        placeholder="Where is the event going to happen?"
+      />
+      <button type="submit">Create</button>
     </form>
   </div>
 </template>
@@ -19,19 +37,31 @@ import { createEvent } from "@/services/event-service.js";
 export default {
   data() {
     return {
-      event: { title: "" }
+      event: {
+        title: "",
+        details: "",
+        location: "",
+        date: "",
+      },
     };
   },
   methods: {
     async submit() {
       try {
-        const res = await createEvent(this.event);
-        console.log("Created new event", res.data);
+        await createEvent(this.event);
+        this.$store.dispatch("pushNotification", {
+          message: "A new event was created!",
+          type: "success",
+        });
+        this.$router.push({ name: "dashboard" });
       } catch (error) {
-        console.error(error);
+        this.$store.dispatch("pushNotification", {
+          message: "Sorry, couldn't create entry, please check your inputs",
+          type: "error",
+        });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
