@@ -90,15 +90,27 @@ export default new Vuex.Store({
     },
     async createProfile(context, avatar) {
       const user = context.state.userData.user;
+      // Set up form data for request
       const formData = new FormData();
-      formData.set("data", JSON.stringify({ user: user.id }));
+      formData.set(
+        "data",
+        JSON.stringify({
+          user: user.id,
+        })
+      );
       formData.set("files.avatar", avatar);
-      // Make post request
+
+      // Make the post request
       const res = await axios.post(
         process.env.VUE_APP_API_URL + "/profiles",
         formData,
-        { headers: { "Content-Type": "multipart/form-data" } }
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
+
       const profile = res.data;
       user.profile = profile;
       context.commit("SET_USER_DATA", {

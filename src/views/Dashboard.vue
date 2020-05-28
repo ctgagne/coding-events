@@ -26,7 +26,7 @@ export default {
   },
   computed: {
     avatarURL() {
-      //Check if logged in
+      // Check if logged in
       const userData = this.$store.state.userData;
       if (!userData) return null;
 
@@ -34,7 +34,7 @@ export default {
       const profile = userData.user.profile;
       if (!profile) return null;
 
-      return process.env.VUE_APP_API_URL + profile.avatar.url;
+      return process.env.VUE_APP_UPLOAD_URL + profile.avatar.url;
     },
   },
   async created() {
@@ -45,8 +45,8 @@ export default {
 
 <style scoped>
 img.avatar {
-  width: 300px;
-  height: 300px;
+  width: 400px;
+  height: 400px;
   border-radius: 50%;
   object-fit: cover;
 }
